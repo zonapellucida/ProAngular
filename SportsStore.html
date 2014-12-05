@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SportsStore</title>
+    <script src="common/js/angular.js"><!-- --></script>
+    <script src="common/js/ngmodules/angular-resource.js"><!-- --></script>
+    <script src="filters/CustomFilters.js"><!-- --></script>
+    <script src="components/sportsStore.js"><!-- --></script>
+    <script src="services/ProductServices.js"><!-- --></script>
+    <script src="controllers/sportsStoreController.js"><!-- --></script>
+
+    <link href="common/css/bootstrap.css" rel="stylesheet" />
+    <link href="common/css/bootstrap-theme.css" rel="stylesheet" />
+
+</head>
+<body ng-app="sportsStore">
+<div class="navbar navbar-inverse">
+    <a class="navbar-brand" href="#">SPORTS STORE</a>
+</div>
+<div class="panel panel-default row" ng-controller="SportsStoreController as storeCtrl">
+    <div ng-controller="ProductsListController as prodCtrl">
+    <div class="col-xs-3">
+        <a class="btn btn-block btn-default btn-lg"
+             ng-click="prodCtrl.selectCategory()">
+            Home
+        </a>
+        <a class="btn btn-block btn-default btn-lg"
+             ng-repeat="cat in storeCtrl.products | categoryFilter:'category' | orderBy:'category'"
+             ng-click="prodCtrl.selectCategory(cat.category)">
+            {{cat.category}}
+        </a>
+    </div>
+    <div class="col-xs-8">
+        <div class="well" ng-repeat="item in storeCtrl.products | filter:prodCtrl.categoryFilterFunction">
+            <h3>
+                <strong>{{item.name}}</strong>
+                <span class="pull-right label label-primary">
+                    {{item.price | currency}}
+                </span>
+                <span class="lead">{{item.description}}</span>
+
+            </h3>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

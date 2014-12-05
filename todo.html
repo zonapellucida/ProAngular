@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="common/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="common/css/bootstrap-theme.css"/>
+    <script src="common/js/angular.js"><!-- --></script>
+    <script src="common/js/todo.js"><!-- --></script>
+    <script src="common/js/todoFilter.js"><!-- --></script>
+    <script src="common/js/todoController.js"><!-- --></script>
+
+</head>
+<body>
+    <div ng-app="todoApp">
+        <div ng-controller="TodoController as todoCtrl" class="panel">
+            <h1>{{todoCtrl.todos.user}}'s Todo List</h1>
+            <form name="todoForm">
+                <input type="text" ng-model="todoCtrl.newTodoAction"/>
+                <span>
+                    <button ng-click="todoCtrl.addTodo()">Add</button>
+                </span>
+            </form>
+            <p>
+                <table class="table table-striped">
+                  <tr>
+                      <th>Description</th>
+                      <th>Done</th>
+                      <th></th>
+                  </tr>
+                  <tr ng-repeat="aTodo in todoCtrl.todos.items| doneFilter:todoCtrl.showDone | orderBy:'action'">
+                      <td>{{aTodo.action}}</td>
+                      <td><input type="checkbox" ng-model="aTodo.done"/> </td>
+                      <td>{{aTodo.done}}</td>
+                  </tr>
+                </table>
+            </p>
+            <p>
+                <input type="checkbox" ng-model="todoCtrl.showDone"/> Show Done Items
+            </p>
+        </div>
+    </div>
+</body>
+</html>
